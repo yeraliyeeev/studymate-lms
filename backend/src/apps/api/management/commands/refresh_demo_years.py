@@ -41,17 +41,19 @@ class Command(BaseCommand):
 
         for index, year in enumerate(years):
             start_year = current_start - (len(years) - 1 - index)
-            year.name = f"{start_year}-{start_year + 1}"
-            year.is_active = True
-            year.is_opened_to_marks = index == len(years) - 1
-            year.save(update_fields=["name", "is_active", "is_opened_to_marks"])
+            Year.objects.filter(pk=year.pk).update(
+                name=f"{start_year}-{start_year + 1}",
+                is_active=True,
+                is_opened_to_marks=index == len(years) - 1,
+            )
 
             for term in year.terms.all():
                 from_year = start_year if term.from_date.month >= 8 else start_year + 1
                 to_year = start_year if term.to_date.month >= 8 else start_year + 1
-                term.from_date = term.from_date.replace(year=from_year)
-                term.to_date = term.to_date.replace(year=to_year)
-                term.save(update_fields=["from_date", "to_date"])
+                year.terms.filter(pk=term.pk).update(
+                    from_date=term.from_date.replace(year=from_year),
+                    to_date=term.to_date.replace(year=to_year),
+                )
 
         self.stdout.write(
             self.style.SUCCESS(
