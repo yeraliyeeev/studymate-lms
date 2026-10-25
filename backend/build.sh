@@ -6,3 +6,4 @@ python src/manage.py collectstatic --no-input
 python src/manage.py migrate
 python src/manage.py seed_db
 python src/manage.py configure_demo_account
+python src/manage.py refresh_demo_years
