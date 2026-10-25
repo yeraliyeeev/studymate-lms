@@ -20,6 +20,7 @@ StudyMate was created to explore how one platform can make academic administrati
 The hosted account is read-only. Reviewers can explore manager workflows and sample data, but requests that would create, edit, or delete data are rejected by the API. The backend may take a short time to wake after inactivity on Render's free plan.
 
 The deployment also refreshes the sample academic-year labels and term dates to the current school cycle, keeping the portfolio data visibly current.
+The public demo school includes the complete grade range from grade 1 through grade 11.
 
 ## Features
 

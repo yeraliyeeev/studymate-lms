@@ -2,6 +2,7 @@ import os
 
 from django.core.management.base import BaseCommand
 
+from apps.core.modules.grades.models import Grade
 from apps.core.modules.schools.models import School
 from apps.core.modules.users.models import User
 
@@ -34,6 +35,15 @@ class Command(BaseCommand):
 
         user.save(update_fields=update_fields)
 
+        for number in range(1, 12):
+            Grade.objects.update_or_create(
+                school=user.school,
+                name=f"{number} grade",
+                defaults={"is_active": True},
+            )
+
         self.stdout.write(
-            self.style.SUCCESS(f"Configured {email} as a read-only demo account.")
+            self.style.SUCCESS(
+                f"Configured {email} as a read-only demo account with grades 1-11."
+            )
         )
