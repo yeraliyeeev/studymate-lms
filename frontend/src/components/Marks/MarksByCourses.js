@@ -24,7 +24,6 @@ import {
 } from "../../redux/terms/termsApiSlice";
 import {
   useGetCourseQuery,
-  useGetSchoolCoursesWithoutQuery,
   useLazyGetSchoolCoursesWithoutQuery,
   useLazyGetTeacherCoursesWithoutQuery,
 } from "../../redux/courses/coursesApiSlice";
