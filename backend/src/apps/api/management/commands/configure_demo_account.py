@@ -2,6 +2,7 @@ import os
 
 from django.core.management.base import BaseCommand
 
+from apps.core.modules.schools.models import School
 from apps.core.modules.users.models import User
 
 
@@ -23,7 +24,15 @@ class Command(BaseCommand):
         user.role = User.Role.MANAGER
         user.is_staff = False
         user.is_superuser = False
-        user.save(update_fields=["role", "is_staff", "is_superuser"])
+        update_fields = ["role", "is_staff", "is_superuser"]
+
+        if user.school_id is None:
+            school = School.objects.order_by("id").first()
+            if school:
+                user.school = school
+                update_fields.append("school")
+
+        user.save(update_fields=update_fields)
 
         self.stdout.write(
             self.style.SUCCESS(f"Configured {email} as a read-only demo account.")

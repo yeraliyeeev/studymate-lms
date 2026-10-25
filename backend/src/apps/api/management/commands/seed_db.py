@@ -89,6 +89,7 @@ class Command(BaseCommand):
             password="admin",
             first_name="Admin",
             last_name="Admin",
+            school=self.schools[0],
             gender="male",
             date_of_birth="2000-01-01"
         )
