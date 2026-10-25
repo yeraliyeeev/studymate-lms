@@ -137,7 +137,17 @@ JWT authentication connects the client to the API. Role-aware routes provide sep
 
 ## Screenshots
 
-Screenshots of the dashboard, course management, assignments, marks, timetable, and community features will be added to `docs/screenshots/`.
+| Dashboard and activity | Users and roles |
+| --- | --- |
+| ![StudyMate dashboard with announcements, leaderboard, and communities](docs/screenshots/dashboard.png) | ![StudyMate user and role management](docs/screenshots/users.png) |
+
+| Courses and enrolment | Academic marks |
+| --- | --- |
+| ![StudyMate course management](docs/screenshots/courses.png) | ![StudyMate academic marks for the current school year](docs/screenshots/marks.png) |
+
+| Awards and recognition | Student communities |
+| --- | --- |
+| ![StudyMate student awards](docs/screenshots/awards.png) | ![StudyMate student communities](docs/screenshots/communities.png) |
 
 ## Project structure
 

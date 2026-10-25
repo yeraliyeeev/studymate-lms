@@ -1,12 +1,12 @@
-# Screenshot checklist
+# Portfolio screenshots
 
-Add PNG screenshots with these filenames:
+This folder contains the screenshots displayed in the main project README:
 
 1. `dashboard.png`
-2. `courses.png`
-3. `assignments.png`
+2. `users.png`
+3. `courses.png`
 4. `marks.png`
-5. `timetable.png`
+5. `awards.png`
 6. `communities.png`
 
-Use a desktop browser at a consistent window size. Avoid showing personal information, browser bookmarks, email inboxes, or access tokens.
+The images demonstrate the public, read-only portfolio account and its seeded sample data.
