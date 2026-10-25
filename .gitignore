@@ -3,6 +3,7 @@ env
 __MACOSX/
 *.pyc
 *.sqlite3
+backend/project.postman_collection.json
 .env
 */settings/local.py
 /staticfiles/*
@@ -16,6 +17,9 @@ __pycache__/
 
 # pycharm
 .idea/
+
+# uploaded demo/profile media
+backend/src/static/images/avatars/
 
 # data
 *.dump

@@ -2,11 +2,11 @@
 
 StudyMate is a full-stack learning management system for schools. It brings course delivery, assignments, grading, schedules, student groups, academic records, awards, announcements, communities, and personal task management into one platform.
 
-## Author
+## Developer
 
-**Assylkhan Yeraliyev — software author and lead full-stack developer**
+**Developed by Assylkhan Yeraliyev**
 
-Assylkhan independently developed StudyMate over approximately 12–14 months as a personal full-stack project. His work covered product planning, the React/Redux frontend, the Django REST backend, database-backed school workflows, authentication, and deployment setup.
+StudyMate combines product planning, a React/Redux frontend, a Django REST backend, database-backed school workflows, authentication, and deployment setup.
 
 StudyMate was created to explore how one platform can make academic administration and everyday learning tasks easier for school managers, teachers, and students.
 
@@ -128,7 +128,7 @@ JWT authentication connects the client to the API. Role-aware routes provide sep
 
 ## Portfolio highlights
 
-- Designed and implemented independently over approximately 12–14 months
+- Designed and developed a full-stack school management platform
 - Modelled school workflows across three user roles
 - Built a React single-page interface backed by a Django REST API
 - Added JWT authentication, role-aware navigation, filtering, and pagination

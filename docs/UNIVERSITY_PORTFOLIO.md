@@ -2,7 +2,7 @@
 
 ## Short activity description
 
-Independently designed and developed StudyMate, a full-stack learning management system for schools, over 12–14 months using React, Redux Toolkit, Django REST Framework, JWT authentication, and PostgreSQL. Built role-based workflows for managers, teachers, and students, then deployed a protected public demo on Render.
+Developed StudyMate, a full-stack learning management system for schools, using React, Redux Toolkit, Django REST Framework, JWT authentication, and PostgreSQL. Built role-based workflows for managers, teachers, and students, then deployed a protected public demo on Render.
 
 ## 150-character version
 
@@ -10,8 +10,8 @@ Built and deployed a full-stack LMS with React, Django REST, PostgreSQL, JWT aut
 
 ## Resume version
 
-**StudyMate LMS — Independent Full-Stack Developer**  
-Designed and developed a school learning management platform over 12–14 months using React, Redux Toolkit, Django REST Framework, and PostgreSQL. Implemented JWT authentication and role-based workflows for courses, assignments, grading, schedules, groups, announcements, awards, communities, and personal tasks. Deployed the frontend, API, and database on Render and protected the public portfolio account with server-side read-only controls.
+**StudyMate LMS — Full-Stack Developer**  
+Developed a school learning management platform using React, Redux Toolkit, Django REST Framework, and PostgreSQL. Implemented JWT authentication and role-based workflows for courses, assignments, grading, schedules, groups, announcements, awards, communities, and personal tasks. Deployed the frontend, API, and database on Render and protected the public portfolio account with server-side read-only controls.
 
 ## Interview talking points
 

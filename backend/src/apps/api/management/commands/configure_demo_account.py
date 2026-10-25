@@ -35,6 +35,9 @@ class Command(BaseCommand):
 
         user.save(update_fields=update_fields)
 
+        # Public demo data uses neutral avatar fallbacks rather than legacy uploads.
+        User.objects.exclude(avatar="").update(avatar=None)
+
         for number in range(1, 12):
             Grade.objects.update_or_create(
                 school=user.school,
