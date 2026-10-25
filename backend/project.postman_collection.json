@@ -1,0 +1,5733 @@
+{
+	"info": {
+		"_postman_id": "086c3a1e-bb78-4763-a7e9-68b032be154a",
+		"name": "StudyMate LMS API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"postman.setEnvironmentVariable('access-token', jsonData.access)",
+									"postman.setEnvironmentVariable('refresh-token', jsonData.refresh)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user2@gmail.com\",\n    \"password\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/token/obtain",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"token",
+								"obtain"
+							]
+						},
+						"description": "Allows to get access and refresh tokens. As username must be passed user email. When tokens successfully obtained, access token must be defines in every outgoing request in Authorization header with value in format \"Bearer {access-token}\"\n\nI strongly recommend to save these tokens to somewhere in client side, like, localstorage for example"
+					},
+					"response": [
+						{
+							"name": "200 OK - Success response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"admin@gmail.com\",\n    \"password\": \"admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/auth/token/obtain/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"auth",
+										"token",
+										"obtain",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"refresh\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY3NDgxMzU2NiwiaWF0IjoxNjc0NzI3MTY2LCJqdGkiOiI3NWQ3NTlkMGIxMDA0NmIxYjJmYTUzZDM0Njc1ODBkZSIsInVzZXJfaWQiOjF9.llTXZCwzVghGIPOYB_Pna4i54SYzDryQRTvBNgZQoXk\",\n    \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc0NzI3NDY2LCJpYXQiOjE2NzQ3MjcxNjYsImp0aSI6IjgxMGE1MjA3NjUwNDQzNDU4MmI5OGQxNmQ3MDI4MTAwIiwidXNlcl9pZCI6MX0.q16lqUHWdjGqrTUZ8I-H1BrffYwFzk-pv16MYfrre5I\"\n}"
+						},
+						{
+							"name": "400 - Fields required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/auth/token/obtain/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"auth",
+										"token",
+										"obtain",
+										""
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jan 2023 10:01:15 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.8.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "87"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"detail\": {\n        \"email\": [\n            \"This field is required.\"\n        ],\n        \"password\": [\n            \"This field is required.\"\n        ]\n    }\n}"
+						},
+						{
+							"name": "401 - No such account",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"admin@gmail.com\",\n    \"password\": \"admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/auth/token/obtain/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"auth",
+										"token",
+										"obtain",
+										""
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n    \"detail\": \"No active account found with the given credentials\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Refresh token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"postman.setEnvironmentVariable('access-token', jsonData.access)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh\": \"{{refresh-token}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/token/refresh",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"token",
+								"refresh"
+							]
+						},
+						"description": "Every access-token has limited life time. When token expires, server will response with error. In order to get new access token without entering credentials again, you have \"refresh\" token. Just send it to server and it will response with new one for you, so you can use it for requests"
+					},
+					"response": [
+						{
+							"name": "200 OK - Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refresh\": \"{{refresh-token}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/auth/token/refresh/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"auth",
+										"token",
+										"refresh",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jan 2023 10:02:59 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.8.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "241"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"access\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc0NzI3Njc5LCJpYXQiOjE2NzQ3MjczNDQsImp0aSI6IjJlNzk3NWQwNjgzZjQ0NTRiYmIzMjNhNzFkN2IzYjg2IiwidXNlcl9pZCI6MX0.wRg2wMB8XzPIy880Xx5Y1VO6dAxmGSzVBqIeEfnNcww\"\n}"
+						},
+						{
+							"name": "400 - Fields missing",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/auth/token/refresh/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"auth",
+										"token",
+										"refresh",
+										""
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jan 2023 10:03:35 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.8.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "50"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"detail\": {\n        \"refresh\": [\n            \"This field is required.\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Verify token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"{{access-token}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/token/verify",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"token",
+								"verify"
+							]
+						},
+						"description": "Anytime you want to check if current access-token is still working, just send it using this method. If everything is okay, then server will respond with 200 OK status, otherwise error 401 will be raised"
+					},
+					"response": [
+						{
+							"name": "200 - Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"token\": \"{{access-token}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/auth/token/verify/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"auth",
+										"token",
+										"verify",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jan 2023 10:04:52 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.8.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{}"
+						},
+						{
+							"name": "400 - Fields missing",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/auth/token/verify/",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"auth",
+										"token",
+										"verify",
+										""
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 26 Jan 2023 10:05:52 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.8.5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Origin"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "48"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"detail\": {\n        \"token\": [\n            \"This field is required.\"\n        ]\n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "Is responsible for processing registration and login of user. On success login saves token to env variable"
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get own profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users/me",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "test12@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "Mark",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "James",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "student",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "male",
+									"type": "text"
+								},
+								{
+									"key": "date_of_birth",
+									"value": "2001-10-03",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "telegram_id",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "rating",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "is_active",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/schools/2/users",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"2",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View one user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users/8",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "user8@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "Cammylin",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "Davi",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "female",
+									"type": "text"
+								},
+								{
+									"key": "date_of_birth",
+									"value": "2001-10-03",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "77-77-77",
+									"type": "text"
+								},
+								{
+									"key": "telegram_id",
+									"value": "77-77-77",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "is_active",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/users/8",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get school users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/schools/1/users?page=1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"1",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "first_name, last_name, email, phone, telegram_id",
+									"disabled": true
+								},
+								{
+									"key": "ordering",
+									"value": "first_name",
+									"description": "first_name, last_name, rating, updated_at, date_of_birth",
+									"disabled": true
+								},
+								{
+									"key": "gender",
+									"value": "male",
+									"description": "male, female",
+									"disabled": true
+								},
+								{
+									"key": "is_active",
+									"value": "true",
+									"description": "true, false",
+									"disabled": true
+								},
+								{
+									"key": "role",
+									"value": "student",
+									"description": "teacher, student, manager",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get school teachers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/schools/1/teachers",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"1",
+								"teachers"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "first_name, last_name, email",
+									"disabled": true
+								},
+								{
+									"key": "ordering",
+									"value": "first_name",
+									"description": "first_name, last_name, rating, updated_at",
+									"disabled": true
+								},
+								{
+									"key": "gender",
+									"value": "male",
+									"description": "male, female",
+									"disabled": true
+								},
+								{
+									"key": "is_active",
+									"value": "true",
+									"description": "true, false",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get school managers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/schools/1/managers?page=1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"1",
+								"managers"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "first_name, last_name, email",
+									"disabled": true
+								},
+								{
+									"key": "ordering",
+									"value": "first_name",
+									"description": "first_name, last_name, rating, updated_at",
+									"disabled": true
+								},
+								{
+									"key": "gender",
+									"value": "male",
+									"description": "male, female",
+									"disabled": true
+								},
+								{
+									"key": "is_active",
+									"value": "true",
+									"description": "true, false",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Grades",
+			"item": [
+				{
+					"name": "View school grades",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/schools/2/grades",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"2",
+								"grades"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "is_active",
+									"value": "true",
+									"description": "true, false",
+									"disabled": true
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "created_at, updated_at",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": " gr",
+									"description": "name",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create grade",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"school\": 1,\n    \"name\": \"1 класс\",\n    \"is_active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/grades",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"grades"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View one grade",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/grades/13",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"grades",
+								"13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update grade",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"school\": 1,\n    \"name\": \"1 класс\",\n    \"is_active\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/grades/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"grades",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Schools",
+			"item": [
+				{
+					"name": "Get one school",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/schools/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update school",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"First general school\",\n    \"address\": \"Main avenue 1\",\n    \"description\": \"Great school with great teachers\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/schools/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Groups",
+			"item": [
+				{
+					"name": "Create group",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"school\": 1,\n    \"grade\": 5,\n    \"teacher\": 4,\n    \"code\": \"TEST3\",\n    \"is_active\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/groups",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update group",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"school\": 1,\n    \"grade\": 1,\n    \"teacher\": 46,\n    \"code\": \"TEST3\",\n    \"is_active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/groups/23",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"groups",
+								"23"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/groups/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"groups",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get school groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/schools/2/groups",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"2",
+								"groups"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "is_active",
+									"value": null,
+									"description": "true, false",
+									"disabled": true
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "created_at, updated_at, code",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": null,
+									"description": "code",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get teacher groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/teachers/45/groups",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"teachers",
+								"45",
+								"groups"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "grade",
+									"value": "",
+									"description": "id",
+									"disabled": true
+								},
+								{
+									"key": "is_active",
+									"value": "",
+									"description": "true, false",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "code",
+									"disabled": true
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "created_at, updated_at, code",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get grade groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/grades/14/groups",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"grades",
+								"14",
+								"groups"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "teacher",
+									"value": "",
+									"description": "id",
+									"disabled": true
+								},
+								{
+									"key": "is_active",
+									"value": "",
+									"description": "true, false",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "code",
+									"disabled": true
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "created_at, updated_at, code",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Students cards",
+			"item": [
+				{
+					"name": "Get one student card",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/students/3",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"students",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update student card",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"group\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/students/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"students",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get school students",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/schools/1/students?page=1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"1",
+								"students"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "ordering",
+									"value": "-user__rating",
+									"description": "user__rating, created_at, updated_at",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "OIHR",
+									"description": "user first name, user last name, user email, group code",
+									"disabled": true
+								},
+								{
+									"key": "user__gender",
+									"value": "female",
+									"description": "male, female, unknown",
+									"disabled": true
+								},
+								{
+									"key": "group",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "group__teacher",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "group__grade",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "no_group",
+									"value": "True",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get group students",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/groups/1/students?page=1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"groups",
+								"1",
+								"students"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "created_at, updated_at",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "user first name, user last name, user email",
+									"disabled": true
+								},
+								{
+									"key": "user__gender",
+									"value": "female",
+									"description": "male, female, unknown",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Subjects",
+			"item": [
+				{
+					"name": "Get one subject",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/subjects/43",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"subjects",
+								"43"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create subject",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"school\": 1,\n    \"grade\": 5,\n    \"name\": 4,\n    \"description\": \"\",\n    \"code\": \"\",\n    \"is_active\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/subjects",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"subjects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update subject",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"school\": 1,\n    \"grade\": 9,\n    \"name\": \"Algebra\",\n    \"description\": \"\",\n    \"code\": \"LOLKEK\",\n    \"is_active\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/subjects/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"subjects",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get school subjects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/schools/2/subjects",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"2",
+								"subjects"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "code, name",
+									"disabled": true
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "created_at, updated_at",
+									"disabled": true
+								},
+								{
+									"key": "is_active",
+									"value": "false",
+									"description": "true, false",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get grade subjects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/grades/9/subjects",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"grades",
+								"9",
+								"subjects"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "code, name",
+									"disabled": true
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "created_at, updated_at",
+									"disabled": true
+								},
+								{
+									"key": "is_active",
+									"value": "false",
+									"description": "true, false",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Academic years",
+			"item": [
+				{
+					"name": "Get one year",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/years/43",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"years",
+								"43"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create year",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"school\": 1,\n    \"name\": \"2023-2024\",\n    \"is_active\": true,\n    \"is_opened_to_marks\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/years",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"years"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update year",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"school\": 1,\n    \"name\": \"2023-2024\",\n    \"is_active\": true,\n    \"is_opened_to_marks\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/years/7",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"years",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get school years",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/schools/1/years?page=1&is_active=&search=&ordering",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"1",
+								"years"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "is_active",
+									"value": "",
+									"description": "true, false"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "name"
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "created_at, updated_at"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Terms",
+			"item": [
+				{
+					"name": "Get one term",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/terms/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"terms",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create term",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"year\": 1,\n    \"name\": \"1 Четверть\",\n    \"from_date\": \"2023-01-15\",\n    \"to_date\": \"2023-01-20\",\n    \"is_closed\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/terms",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"terms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update term",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"year\": 1,\n    \"name\": \"Fall term\",\n    \"from_date\": \"2023-01-15\",\n    \"to_date\": \"2023-01-20\",\n    \"is_closed\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/terms/15",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"terms",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get terms of year",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/years/2/terms?page=1&search=&ordering&is_closed=",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"years",
+								"2",
+								"terms"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "name"
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "created_at, updated_at, from_date, to_date"
+								},
+								{
+									"key": "is_closed",
+									"value": "",
+									"description": "true, false"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "Get one course",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/courses/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create course",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"year\": 2,\n    \"subject\": 12,\n    \"teacher\": 44,\n    \"group\": 1,\n    \"is_active\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/schools/1/courses",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"1",
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update course",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"teacher\": 40,\n    \"is_active\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/courses/5",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get school courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/schools/2/courses?page=1&search=&ordering&is_active&no_teacher=&subject__grade=&year",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"2",
+								"courses"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "teacher (first or last name, email), group code, subject name"
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "created_at, updated_at"
+								},
+								{
+									"key": "is_active",
+									"value": null,
+									"description": "true, false"
+								},
+								{
+									"key": "no_teacher",
+									"value": "",
+									"description": "true, false"
+								},
+								{
+									"key": "subject__grade",
+									"value": "",
+									"description": "id"
+								},
+								{
+									"key": "year",
+									"value": null,
+									"description": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get teacher courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/teachers/34/courses?page=1&search=&ordering&is_active&subject__grade=&year=",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"teachers",
+								"34",
+								"courses"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "group code, subject name"
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "created_at, updated_at"
+								},
+								{
+									"key": "is_active",
+									"value": null,
+									"description": "true, false"
+								},
+								{
+									"key": "subject__grade",
+									"value": "",
+									"description": "id"
+								},
+								{
+									"key": "year",
+									"value": "",
+									"description": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get subject courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/subjects/116/courses?page=1&search=&ordering&is_active&no_teacher=",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"subjects",
+								"116",
+								"courses"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "teacher (first or last name, email), group code"
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "created_at, updated_at"
+								},
+								{
+									"key": "is_active",
+									"value": null,
+									"description": "true, false"
+								},
+								{
+									"key": "no_teacher",
+									"value": "",
+									"description": "true, false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get group courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/groups/6/courses?page=1&search=&ordering&is_active&no_teacher=&subject__grade=&year",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"groups",
+								"6",
+								"courses"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "teacher (first or last name, email), subject name"
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "created_at, updated_at"
+								},
+								{
+									"key": "is_active",
+									"value": null,
+									"description": "true, false"
+								},
+								{
+									"key": "no_teacher",
+									"value": "",
+									"description": "true, false"
+								},
+								{
+									"key": "subject__grade",
+									"value": "",
+									"description": "id"
+								},
+								{
+									"key": "year",
+									"value": null,
+									"description": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get year courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/years/3/courses?page=1&search=&ordering&is_active&no_teacher=&subject__grade=",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"years",
+								"3",
+								"courses"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "teacher (first or last name, email), group code, subject name"
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "created_at, updated_at"
+								},
+								{
+									"key": "is_active",
+									"value": null,
+									"description": "true, false"
+								},
+								{
+									"key": "no_teacher",
+									"value": "",
+									"description": "true, false"
+								},
+								{
+									"key": "subject__grade",
+									"value": "",
+									"description": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get course students",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/courses/3/students?page=1&search=&ordering&user__gender=",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses",
+								"3",
+								"students"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "user first name, last name, email"
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "created_at, updated_at"
+								},
+								{
+									"key": "user__gender",
+									"value": "",
+									"description": "male, female, unknonw"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Syllabus",
+			"item": [
+				{
+					"name": "Get one syllabus point",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/syllabus/57",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"syllabus",
+								"57"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create syllabus point",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"What is art\",\n    \"description\": \"Basics of art subject\",\n    \"hours\": 1,\n    \"is_completed\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/courses/3/syllabus",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses",
+								"3",
+								"syllabus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update syllabus point",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"What is art updated\",\n    \"description\": \"Basics of art subject\",\n    \"hours\": 1,\n    \"is_completed\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/syllabus/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"syllabus",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete syllabus point",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/syllabus/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"syllabus",
+								"2"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get course syllabus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/courses/45/syllabus?page=1&search=&ordering&is_completed=",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses",
+								"45",
+								"syllabus"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "name"
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "created_at, updated_at"
+								},
+								{
+									"key": "is_completed",
+									"value": "",
+									"description": "true, false"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Assignments",
+			"item": [
+				{
+					"name": "Get one assignment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/assignments/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"assignments",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create course assignment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"term\": 5,\n    \"datetime\": \"2019-04-10T00:20:00+06:00\",\n    \"name\": \"Test assignment #2\",\n    \"description\": \"Some description\",\n    \"is_active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/courses/13/assignments",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses",
+								"13",
+								"assignments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update assignment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"datetime\": \"2020-09-10T00:20:00+06:00\",\n    \"name\": \"Test assignment #2 updated one\",\n    \"description\": \"Some description\",\n    \"is_active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/assignments/96",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"assignments",
+								"96"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete assignment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/assignments/98",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"assignments",
+								"98"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get course assignments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/courses/1/assignments",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses",
+								"1",
+								"assignments"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "term",
+									"value": "9",
+									"disabled": true
+								},
+								{
+									"key": "is_active",
+									"value": "False",
+									"disabled": true
+								},
+								{
+									"key": "ordering",
+									"value": "datetime",
+									"description": "datetime, -datetime",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "nul",
+									"description": "in fields: name",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all assignments of teacher",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/teachers/10/assignments?page=1&course&term&is_active&course__subject&course__year&course__group&ordering&search",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"teachers",
+								"10",
+								"assignments"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "course",
+									"value": null
+								},
+								{
+									"key": "term",
+									"value": null
+								},
+								{
+									"key": "is_active",
+									"value": null
+								},
+								{
+									"key": "course__subject",
+									"value": null
+								},
+								{
+									"key": "course__year",
+									"value": null
+								},
+								{
+									"key": "course__group",
+									"value": null
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "assignment datetime"
+								},
+								{
+									"key": "search",
+									"value": null,
+									"description": "assignment name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all assignments of student",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/students/1/assignments?page=1&course&term&is_active&course__subject&course__year&ordering&search",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"students",
+								"1",
+								"assignments"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "course",
+									"value": null
+								},
+								{
+									"key": "term",
+									"value": null
+								},
+								{
+									"key": "is_active",
+									"value": null
+								},
+								{
+									"key": "course__subject",
+									"value": null
+								},
+								{
+									"key": "course__year",
+									"value": null
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "assignment datetime"
+								},
+								{
+									"key": "search",
+									"value": null,
+									"description": "assignment name"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Course posts",
+			"item": [
+				{
+					"name": "Comments",
+					"item": [
+						{
+							"name": "Get one comment",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/courses-posts-comments/500",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"courses-posts-comments",
+										"500"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"text\": \"Some information\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/courses-posts/140/comments",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"courses-posts",
+										"140",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update comment",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"text\": \"Some information\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/courses-posts-comments/318",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"courses-posts-comments",
+										"318"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete comment",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/courses-posts-comments/77",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"courses-posts-comments",
+										"77"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get course post comments",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/courses-posts/133/comments",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"courses-posts",
+										"133",
+										"comments"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get one course post",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/courses-posts/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses-posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create course post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Test title\",\n    \"text\": \"Some information\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/courses/27/posts",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses",
+								"27",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update course post",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Test title updated\",\n    \"text\": \"Some information\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/courses-posts/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses-posts",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete course post",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/courses-posts/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses-posts",
+								"2"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get course posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/courses/26/posts",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses",
+								"26",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "ordering",
+									"value": "created_at",
+									"description": "created_at, updated_at (\"-\" if descending)",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "test",
+									"description": "in fields: title",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "School posts",
+			"item": [
+				{
+					"name": "Comments",
+					"item": [
+						{
+							"name": "Get one comment",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/schools-posts-comments/44",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"schools-posts-comments",
+										"44"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create comment",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"text\": \"Some information\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/schools-posts/11/comments",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"schools-posts",
+										"11",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update comment",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"text\": \"Some information\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/schools-posts-comments/47",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"schools-posts-comments",
+										"47"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete comment",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/schools-posts-comments/46",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"schools-posts-comments",
+										"46"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get school post comments",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/schools-posts/11/comments",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"schools-posts",
+										"11",
+										"comments"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get one school post",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/schools-posts/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools-posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create school post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Test title\",\n    \"text\": \"Some information\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/schools/2/posts",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"2",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update school post",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Test title updated\",\n    \"text\": \"Some information\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/schools-posts/3",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools-posts",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete school post",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/schools-posts/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools-posts",
+								"2"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get school posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/schools/2/posts",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"2",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "ordering",
+									"value": "created_at",
+									"description": "created_at, updated_at (\"-\" if descending)",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "test",
+									"description": "in fields: title",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rooms",
+			"item": [
+				{
+					"name": "Get one room",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/rooms/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"rooms",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create school room",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"450 cabinet\",\n    \"is_active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/schools/1/rooms",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"1",
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update room",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"436 cabinet\",\n    \"is_active\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/rooms/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"rooms",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete room",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/rooms/2",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"rooms",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get school rooms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/schools/1/rooms",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"1",
+								"rooms"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "ordering",
+									"value": "name",
+									"description": "name, created_at, updated_at",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "some text",
+									"description": "name",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Timebounds",
+			"item": [
+				{
+					"name": "Get one timebound",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/timebounds/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"timebounds",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create school timebound",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"from_time\": \"09:00:00\",\n    \"to_time\": \"8:00:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/schools/1/timebounds",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"1",
+								"timebounds"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update timebound",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"from_time\": \"09:00:00\",\n    \"to_time\": \"12:00:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/timebounds/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"timebounds",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete timebound",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/timebounds/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"timebounds",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get school timebounds",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/schools/1/timebounds",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"1",
+								"timebounds"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "ordering",
+									"value": "-to_time",
+									"description": "from_time, to_time, created_at, updated_at",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Timetables",
+			"item": [
+				{
+					"name": "Get one timetable slot",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/timetables-slots/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"timetables-slots",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update one timetable slot",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"course\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/timetables-slots/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"timetables-slots",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get school timetable",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/schools/1/timetable?page=1&search=",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"1",
+								"timetable"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "weekday",
+									"value": "",
+									"description": "In Javascript 0 -Sunday, 6 - Saturday",
+									"disabled": true
+								},
+								{
+									"key": "timebound",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "course",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "room",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "no_course",
+									"value": "True",
+									"description": "True, False",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "room name, subject name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get course timetable",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/courses/1/timetable?weekday=",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses",
+								"1",
+								"timetable"
+							],
+							"query": [
+								{
+									"key": "weekday",
+									"value": "",
+									"description": "In Javascript 0 -Sunday, 6 - Saturday"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get room timetable",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/rooms/1/timetable?page=1&weekday=&timebound&course=&no_course=&search=",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"rooms",
+								"1",
+								"timetable"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "weekday",
+									"value": "",
+									"description": "In Javascript 0 -Sunday, 6 - Saturday"
+								},
+								{
+									"key": "timebound",
+									"value": null
+								},
+								{
+									"key": "course",
+									"value": ""
+								},
+								{
+									"key": "no_course",
+									"value": "",
+									"description": "True, False"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "subject name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get group timetable",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/groups/1/timetable?search",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"groups",
+								"1",
+								"timetable"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "weekday",
+									"value": "",
+									"description": "In Javascript 0 -Sunday, 6 - Saturday",
+									"disabled": true
+								},
+								{
+									"key": "timebound",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "course",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "room",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": null,
+									"description": "room name, subject name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get teacher timetable",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/teachers/2/timetable?page=1&search=",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"teachers",
+								"2",
+								"timetable"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "weekday",
+									"value": "",
+									"description": "In Javascript 0 -Sunday, 6 - Saturday",
+									"disabled": true
+								},
+								{
+									"key": "timebound",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "course",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "room",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "room name, subject name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get timebound timetable",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/timebounds/2/timetable",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"timebounds",
+								"2",
+								"timetable"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "weekday",
+									"value": "",
+									"description": "In Javascript 0 -Sunday, 6 - Saturday",
+									"disabled": true
+								},
+								{
+									"key": "course",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "no_course",
+									"value": "False",
+									"description": "True, False",
+									"disabled": true
+								},
+								{
+									"key": "room",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "room name, subject name",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Awards",
+			"item": [
+				{
+					"name": "Get one award",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/awards/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"awards",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update award",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Most active student of lesson\",\n    \"description\": \"Some description\",\n    \"points\": 1,\n    \"is_active\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/awards/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"awards",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get school awards list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/schools/1/awards?page=1&is_active=&ordering=&search",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"1",
+								"awards"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "is_active",
+									"value": ""
+								},
+								{
+									"key": "ordering",
+									"value": "",
+									"description": "points, created_at, updated_at, is_active"
+								},
+								{
+									"key": "search",
+									"value": null,
+									"description": "award name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create award",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Most creative student of lesson\",\n    \"description\": \"Some description\",\n    \"points\": 10,\n    \"is_active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/schools/1/awards",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"1",
+								"awards"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Winners",
+			"item": [
+				{
+					"name": "Statistics",
+					"item": [
+						{
+							"name": "Get awards stats of school",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/schools/1/awards-overview?page=1&search=",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"schools",
+										"1",
+										"awards-overview"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "is_active",
+											"value": "true",
+											"disabled": true
+										},
+										{
+											"key": "ordering",
+											"value": "issued_total",
+											"description": "issued_total, points, created_at, updated_at, is_active",
+											"disabled": true
+										},
+										{
+											"key": "search",
+											"value": "",
+											"description": "award name"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get awards stats of student",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/students/2/awards-overview?page=1&search=",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"students",
+										"2",
+										"awards-overview"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "is_active",
+											"value": "true",
+											"disabled": true
+										},
+										{
+											"key": "ordering",
+											"value": "-issued_total",
+											"description": "issued_total, points, created_at, updated_at, is_active",
+											"disabled": true
+										},
+										{
+											"key": "search",
+											"value": "",
+											"description": "award name"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get issued by user winners stats",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/users/15/issued-winners-overview?page=1&search=",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"users",
+										"15",
+										"issued-winners-overview"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "is_active",
+											"value": "true",
+											"disabled": true
+										},
+										{
+											"key": "ordering",
+											"value": "-issued_total",
+											"description": "issued_total, points, created_at, updated_at, is_active",
+											"disabled": true
+										},
+										{
+											"key": "search",
+											"value": "",
+											"description": "award name"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get course awards stats",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/courses/1/awards-overview?page=1&search=",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"courses",
+										"1",
+										"awards-overview"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "is_active",
+											"value": "true",
+											"disabled": true
+										},
+										{
+											"key": "ordering",
+											"value": "-issued_total",
+											"description": "issued_total, points, created_at, updated_at, is_active",
+											"disabled": true
+										},
+										{
+											"key": "search",
+											"value": "",
+											"description": "award name"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get winner",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/winners/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"winners",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get winners of award",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/awards/3/winners?page=1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"awards",
+								"3",
+								"winners"
+							],
+							"query": [
+								{
+									"key": "student__user__gender",
+									"value": "male",
+									"description": "male, female",
+									"disabled": true
+								},
+								{
+									"key": "ordering",
+									"value": "",
+									"description": "created_at",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get winners of school",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/schools/1/winners?page=1&award=",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"1",
+								"winners"
+							],
+							"query": [
+								{
+									"key": "student__user__gender",
+									"value": "male",
+									"description": "male, female",
+									"disabled": true
+								},
+								{
+									"key": "ordering",
+									"value": "-created_at",
+									"description": "created_at",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "award",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get awards of student",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/students/2/awards?award=4&page=1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"students",
+								"2",
+								"awards"
+							],
+							"query": [
+								{
+									"key": "award",
+									"value": "4"
+								},
+								{
+									"key": "ordering",
+									"value": "",
+									"description": "created_at",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get issued winners by user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users/15/issued-winners?page=1&student__user__gender&ordering&award=5",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"15",
+								"issued-winners"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "student__user__gender",
+									"value": null
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "created_at"
+								},
+								{
+									"key": "award",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create course winner",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"student\": 2,\n    \"award\": 2,\n    \"comment\": \"Great work\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/courses/3/winners",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses",
+								"3",
+								"winners"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get course winners",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/courses/4/winners?student__user__gender=&ordering&page=1&award=5",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses",
+								"4",
+								"winners"
+							],
+							"query": [
+								{
+									"key": "student__user__gender",
+									"value": ""
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "created_at"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "award",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Todos",
+			"item": [
+				{
+					"name": "Get one todo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/todos/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"todos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update todo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test\",\n    \"description\": \"lol\",\n    \"is_done\": true,\n    \"priority\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/todos/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"todos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all my todos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/todos?page=1&is_done&priority&search&ordering",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"todos"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "is_done",
+									"value": null,
+									"description": "true, false"
+								},
+								{
+									"key": "priority",
+									"value": null,
+									"description": "0,1,2,3"
+								},
+								{
+									"key": "search",
+									"value": null,
+									"description": "todo name"
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "priority, is_done, created_at, updated_at"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create todo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Another new todo\",\n    \"description\": \"lol\",\n    \"is_done\": true,\n    \"priority\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/todos",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete todo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/todos/168",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"todos",
+								"168"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Communities",
+			"item": [
+				{
+					"name": "Memberships",
+					"item": [
+						{
+							"name": "Ger community members",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/communities/2/memberships?page=1&search=&ordering",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"communities",
+										"2",
+										"memberships"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "search",
+											"value": "",
+											"description": "email, first_name, last__name"
+										},
+										{
+											"key": "ordering",
+											"value": null,
+											"description": "created_at, updated_at"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get student memberships",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/students/1/memberships?page=1&search=&ordering",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"students",
+										"1",
+										"memberships"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "search",
+											"value": "",
+											"description": "community name"
+										},
+										{
+											"key": "ordering",
+											"value": null,
+											"description": "created_at, updated_at"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Join community",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/communities/1/memberships",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"communities",
+										"1",
+										"memberships"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get one membership",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/memberships/39",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"memberships",
+										"39"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete membership",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/memberships/66",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"memberships",
+										"66"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get one community",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/communities/3",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"communities",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update community",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"New community\",\n    \"description\": \"A community of lovers to read interesting books and discuss them with other people. Share opinions, learn something new\",\n    \"link\": \"https://lol.com\",\n    \"is_active\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/communities/17",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"communities",
+								"17"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get school communities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/schools/1/communities?limit=3&offset=6&is_active&ordering=&search=",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"1",
+								"communities"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "3"
+								},
+								{
+									"key": "offset",
+									"value": "6"
+								},
+								{
+									"key": "is_active",
+									"value": null,
+									"description": "true, false"
+								},
+								{
+									"key": "ordering",
+									"value": "",
+									"description": "is_active, members_count, created_at, updated_at"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "community name "
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create community",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"New community\",\n    \"description\": \"Some description\",\n    \"link\": \"\",\n    \"is_active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/schools/1/communities",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"schools",
+								"1",
+								"communities"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Enrollments",
+			"item": [
+				{
+					"name": "Get one enrollment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/courses/17/enrollments/73",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses",
+								"17",
+								"enrollments",
+								"73"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update enrollment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/courses/49/enrollments/73",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses",
+								"49",
+								"enrollments",
+								"73"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create enrollment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"student\": 20\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/courses/17/enrollments",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses",
+								"17",
+								"enrollments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get course enrollments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/courses/1/enrollments?page=1&ordering=&search=&student__user__gender=",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses",
+								"1",
+								"enrollments"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "ordering",
+									"value": "",
+									"description": "created_at, updated_at, student__user__gender, student__user__email, student__user__first_name, student__user__last_name,\n"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "student's email, first and last names"
+								},
+								{
+									"key": "student__user__gender",
+									"value": "",
+									"description": "male, female, unknown"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get students with transferred enrollment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/courses/10/transferred-enrollments?page=1&ordering=&search=&student__user__gender=",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses",
+								"10",
+								"transferred-enrollments"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "ordering",
+									"value": "",
+									"description": "created_at, updated_at, student__user__gender, student__user__email, student__user__first_name, student__user__last_name,\n"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "student's email, first and last names"
+								},
+								{
+									"key": "student__user__gender",
+									"value": "",
+									"description": "male, female, unknown"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get students not enrolled to course",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/courses/5/not-enrolled-students?page=1&ordering=&search=&user__gender=",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"courses",
+								"5",
+								"not-enrolled-students"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "ordering",
+									"value": "",
+									"description": "created_at, updated_at, user__gender, user__email, user__first_name, user__last_name"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "student's email, first and last names"
+								},
+								{
+									"key": "user__gender",
+									"value": "",
+									"description": "male, female, unknown"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Marks",
+			"item": [
+				{
+					"name": "Marks of course",
+					"item": [
+						{
+							"name": "Get marks of course as list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/courses/2/marks-list?page=1&ordering=&search&number=&assignment__term=",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"courses",
+										"2",
+										"marks-list"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "ordering",
+											"value": "",
+											"description": "updated_at, created_at, assignment__created_at, assignment__datetime, enrollment__student__user__first_name, enrollment__student__user__last_name"
+										},
+										{
+											"key": "search",
+											"value": null,
+											"description": "assignment name, student email, first or last name"
+										},
+										{
+											"key": "number",
+											"value": "",
+											"description": "1,2,3,4,5"
+										},
+										{
+											"key": "assignment__term",
+											"value": "",
+											"description": "id of term"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get marks of course grouped by enrollments",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/courses/2/marks?page=1&term=3&ordering=&search",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"courses",
+										"2",
+										"marks"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "term",
+											"value": "3"
+										},
+										{
+											"key": "ordering",
+											"value": "",
+											"description": "average_mark, student__user__first_name, student__user__last_name"
+										},
+										{
+											"key": "search",
+											"value": null,
+											"description": "student first or last name, email"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Marks of student",
+					"item": [
+						{
+							"name": "Get marks of student as list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/students/2/marks-list?page=1&search&ordering&number=",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"students",
+										"2",
+										"marks-list"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "search",
+											"value": null,
+											"description": "assignment name, subject name"
+										},
+										{
+											"key": "ordering",
+											"value": null,
+											"description": "updated_at, created_at, assignment__created_at, assignment__datetime"
+										},
+										{
+											"key": "number",
+											"value": "",
+											"description": "1,2,3,4,5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get marks of student grouped by enrollments",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/students/2/marks?page=1&term=&year&subject__grade=3&search&ordering=-average_mark",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"students",
+										"2",
+										"marks"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "term",
+											"value": "",
+											"description": "id of term. If not passed, will return all marks for enrollment"
+										},
+										{
+											"key": "year",
+											"value": null
+										},
+										{
+											"key": "subject__grade",
+											"value": "3"
+										},
+										{
+											"key": "search",
+											"value": null,
+											"description": "subject name"
+										},
+										{
+											"key": "ordering",
+											"value": "-average_mark",
+											"description": "average_mark"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get one mark",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/marks/4",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"marks",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete mark",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/marks/3",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"marks",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update mark",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"number\": 3,\n    \"comment\": \"Not good\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/marks/7",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"marks",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get marks of assignment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/assignments/2/marks?page=1&ordering=&search=&number=",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"assignments",
+								"2",
+								"marks"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "ordering",
+									"value": "",
+									"description": "updated_at, created_at, enrollment__student__user__first_name, enrollment__student__user__last_name"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "student email, first or last name"
+								},
+								{
+									"key": "number",
+									"value": "",
+									"description": "1,2,3,4,5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create mark",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"enrollment\": 4,\n    \"number\": 4,\n    \"comment\": \"lol\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/assignments/6/marks",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"assignments",
+								"6",
+								"marks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get marks of assignment grouped by enrollments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/assignments/2/marks-grouped?student__user__gender=&search&ordering",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"assignments",
+								"2",
+								"marks-grouped"
+							],
+							"query": [
+								{
+									"key": "student__user__gender",
+									"value": "",
+									"description": "male, female"
+								},
+								{
+									"key": "search",
+									"value": null,
+									"description": "student's name or surname, email"
+								},
+								{
+									"key": "ordering",
+									"value": null,
+									"description": "updated_at, created_at, student__user__email, student__user__first_name, student__user__last_name"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Final marks",
+			"item": [
+				{
+					"name": "Terms marks",
+					"item": [
+						{
+							"name": "Get one term mark",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/terms-marks/1",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"terms-marks",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update term mark",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"number\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/terms-marks/1",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"terms-marks",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete term mark",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/terms-marks/1",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"terms-marks",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get term marks of course as list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/courses/1/terms-marks?page=1&search=&ordering",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"courses",
+										"1",
+										"terms-marks"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "search",
+											"value": "",
+											"description": "student email, first and last name"
+										},
+										{
+											"key": "ordering",
+											"value": null,
+											"description": "updated_at, created_at, enrollment__student__user__first_name, enrollment__student__user__last_name"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create term mark",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"enrollment\": 2,\n    \"term\": 5,\n    \"number\": 4\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/courses/1/terms-marks",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"courses",
+										"1",
+										"terms-marks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get term marks of students as list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/students/9/terms-marks?page=1&enrollment__subject&enrollment__year=&search=&ordering",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"students",
+										"9",
+										"terms-marks"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "enrollment__subject",
+											"value": null
+										},
+										{
+											"key": "enrollment__year",
+											"value": ""
+										},
+										{
+											"key": "search",
+											"value": "",
+											"description": "subject name"
+										},
+										{
+											"key": "ordering",
+											"value": null,
+											"description": "updated_at, created_at, number"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Years marks",
+					"item": [
+						{
+							"name": "Get one year mark",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/years-marks/1",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"years-marks",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update year mark",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"number\": 3\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/years-marks/1",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"years-marks",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete year mark",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/years-marks/1",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"years-marks",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get year marks of course as list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/courses/1/years-marks?page=1&search=&ordering",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"courses",
+										"1",
+										"years-marks"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "search",
+											"value": "",
+											"description": "student email, first and last name"
+										},
+										{
+											"key": "ordering",
+											"value": null,
+											"description": "updated_at, created_at, enrollment__student__user__first_name, enrollment__student__user__last_name"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create year mark",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"enrollment\": 4,\n    \"number\": 4\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/courses/1/years-marks",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"courses",
+										"1",
+										"years-marks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get year marks of students as list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/students/4/years-marks?page=1&enrollment__year=&search=&ordering",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"students",
+										"4",
+										"years-marks"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "enrollment__year",
+											"value": ""
+										},
+										{
+											"key": "search",
+											"value": "",
+											"description": "subject name"
+										},
+										{
+											"key": "ordering",
+											"value": null,
+											"description": "updated_at, created_at, number"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Overview of final marks",
+					"item": [
+						{
+							"name": "Get final marks of course grouped by enrollments",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/courses/1/final-marks?page=1&search&ordering=",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"courses",
+										"1",
+										"final-marks"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "search",
+											"value": null,
+											"description": "student email, first or last name"
+										},
+										{
+											"key": "ordering",
+											"value": "",
+											"description": "terms_average, student__user__first_name, student__user__last_name"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get final marks of student grouped by enrollments",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/students/3/final-marks?page=1&search&ordering=&year",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"students",
+										"3",
+										"final-marks"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "search",
+											"value": null,
+											"description": "subject name"
+										},
+										{
+											"key": "ordering",
+											"value": "",
+											"description": "terms_average"
+										},
+										{
+											"key": "year",
+											"value": null,
+											"description": "id of year"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access-token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

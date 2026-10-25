@@ -1,0 +1,18 @@
+                                               
+
+from django.db import migrations
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('schools', '0001_initial'),
+        ('grades', '0002_remove_grade_number_grade_is_active_grade_school_and_more'),
+    ]
+
+    operations = [
+        migrations.AlterUniqueTogether(
+            name='grade',
+            unique_together={('school', 'name')},
+        ),
+    ]

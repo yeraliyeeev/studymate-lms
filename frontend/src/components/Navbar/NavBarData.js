@@ -1,0 +1,235 @@
+import HomeSvg from "../../assets/icons/HomeIcon";
+import CoursesSvg from "../../assets/icons/CoursesIcon";
+import AssignmentsSvg from "../../assets/icons/AssignmentsIcon";
+import ScheduleSvg from "../../assets/icons/ScheduleIcon";
+import MaterialsSvg from "../../assets/icons/MaterialsIcon";
+import ClassroomSvg from "../../assets/icons/ClassroomIcon";
+import GradesSvg from "../../assets/icons/GradesIcon";
+import UsersSvg from "../../assets/icons/UsersIcon";
+import SchoolGradesSvg from "../../assets/icons/SchoolGradesIcon";
+import SubjectsSvg from "../../assets/icons/SubjectsIcon";
+import YearSvg from "../../assets/icons/YearIcon";
+import TermsSvg from "../../assets/icons/TermsIcon";
+import TermSvg from "../../assets/icons/TermIcon";
+import SchoolSvg from "../../assets/icons/SchoolIcon";
+import GroupSvg from "../../assets/icons/GroupIcon";
+import StudentSvg from "../../assets/icons/StudentIcon";
+import AwardsSvg from "../../assets/icons/AwardsIcon";
+import TimelineSvg from "../../assets/icons/TimelineIcon";
+import RoomSvg from "../../assets/icons/RoomIcon";
+import CommunitySvg from "../../assets/icons/CommunityIcon";
+import TodoSvg from "../../assets/icons/TodoIcon";
+import FinalSvg from "../../assets/icons/FinalIcon";
+
+export const managerMenu = [
+  {
+    title: "Home",
+    path: "/",
+    icon: HomeSvg,
+  },
+  {
+    title: "Users",
+    path: "/users",
+    icon: UsersSvg,
+  },
+  {
+    title: "School",
+    path: `/school`,
+    icon: SchoolSvg,
+  },
+  {
+    title: "Marks",
+    path: "/studentmarks",
+    icon: GradesSvg,
+  },
+  {
+    title: "Final marks",
+    path: "/finalmarks",
+    icon: FinalSvg,
+  },
+  {
+    title: "Groups",
+    path: `/groups`,
+    icon: GroupSvg,
+  },
+  {
+    title: "Students",
+    path: `/students`,
+    icon: StudentSvg,
+  },
+  {
+    title: "Subjects",
+    path: `/school/subjects`,
+    icon: SubjectsSvg,
+  },
+  {
+    title: "Terms",
+    path: `/terms`,
+    icon: TermsSvg,
+    submenu: [
+      {
+        title: "Terms",
+        path: `/terms/term`,
+        icon: TermSvg,
+      },
+      {
+        title: "Academic Year",
+        path: `/terms/years`,
+        icon: YearSvg,
+      },
+    ],
+  },
+  {
+    title: "Courses",
+    path: `/schools/courses`,
+    icon: CoursesSvg,
+  },
+  {
+    title: "Awards",
+    path: `/awards`,
+    icon: AwardsSvg,
+  },
+  {
+    title: "Timeline",
+    path: `/timeline`,
+    icon: TimelineSvg,
+    submenu: [
+      {
+        title: "Timetable",
+        path: `/timeline/timetable`,
+        icon: TermSvg,
+      },
+      {
+        title: "Rooms",
+        path: `/timeline/rooms`,
+        icon: RoomSvg,
+      },
+      {
+        title: "Time bounds",
+        path: `/timeline/time-bounds`,
+        icon: YearSvg,
+      },
+    ],
+  },
+  {
+    title: "Communities",
+    path: `/communities`,
+    icon: CommunitySvg,
+  },
+  {
+    title: "ToDo",
+    path: `/todo`,
+    icon: TodoSvg,
+  },
+];
+
+export const studentMenu = [
+  {
+    title: "Home",
+    path: "/",
+    icon: HomeSvg,
+  },
+  {
+    title: "My courses",
+    path: "/courses",
+    icon: CoursesSvg,
+  },
+  {
+    title: "Assignments",
+    path: "/assignments",
+    icon: AssignmentsSvg,
+  },
+  {
+    title: "Schedule",
+    path: "/schedule",
+    icon: ScheduleSvg,
+  },
+  {
+    title: "Marks",
+    path: "/marks",
+    icon: GradesSvg,
+  },
+  {
+    title: "Final marks",
+    path: "/finalmarks/student",
+    icon: FinalSvg,
+  },
+  {
+    title: "School",
+    path: `/school`,
+    icon: SubjectsSvg,
+  },
+  {
+    title: "Awards",
+    path: `/awards`,
+    icon: AwardsSvg,
+  },
+  {
+    title: "Communities",
+    path: `/communities`,
+    icon: CommunitySvg,
+  },
+  {
+    title: "ToDo",
+    path: `/todo`,
+    icon: TodoSvg,
+  },
+];
+
+export const teacherMenu = [
+  {
+    title: "Home",
+    path: "/",
+    icon: HomeSvg,
+  },
+  {
+    title: "My courses",
+    path: "/courses",
+    icon: CoursesSvg,
+  },
+  {
+    title: "Assignments",
+    path: "/assignments",
+    icon: AssignmentsSvg,
+  },
+  {
+    title: "Schedule",
+    path: "/timeline",
+    icon: ScheduleSvg,
+  },
+  {
+    title: "Marks",
+    path: "/studentmarks",
+    icon: GradesSvg,
+  },
+  {
+    title: "Final marks",
+    path: "/finalmarks",
+    icon: FinalSvg,
+  },
+  {
+    title: "School",
+    path: `/school`,
+    icon: SubjectsSvg,
+  },
+  {
+    title: "Groups",
+    path: `/my-groups`,
+    icon: GroupSvg,
+  },
+  {
+    title: "Communities",
+    path: `/communities`,
+    icon: CommunitySvg,
+  },
+  {
+    title: "ToDo",
+    path: `/todo`,
+    icon: TodoSvg,
+  },
+  {
+    title: "Awards",
+    path: `/awards`,
+    icon: AwardsSvg,
+  },
+];

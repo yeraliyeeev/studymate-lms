@@ -1,0 +1,24 @@
+                                               
+
+from django.db import migrations, models
+import django.db.models.deletion
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ("schools", "0001_initial"),
+        ("grades", "0004_alter_grade_name"),
+    ]
+
+    operations = [
+        migrations.AlterField(
+            model_name="grade",
+            name="school",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="grades",
+                to="schools.school",
+            ),
+        ),
+    ]

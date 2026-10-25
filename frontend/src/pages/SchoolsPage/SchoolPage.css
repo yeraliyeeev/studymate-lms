@@ -1,0 +1,53 @@
+.school .section {
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+  background-color: white;
+  
+  transition: all 0.3s;
+  border: 1px solid rgba(5, 5, 5, 0.06);
+}
+
+.school {
+  flex: 1;
+}
+
+.school .btn {
+  background-color: #163a61;
+}
+
+.school .btn:hover {
+  background-color: #163a61 !important;
+}
+
+.school .input:hover {
+  
+  
+}
+
+.school .title {
+  font-weight: 600;
+  font-size: 19px;
+  color: rgba(74, 77, 88, 1);
+}
+
+.school .address {
+  font-weight: 600;
+  font-size: 15px;
+  color: rgba(0, 136, 157, 1);
+  margin-top: 5px;
+}
+
+.school .des {
+  font-weight: 600;
+  font-size: 18px;
+  color: rgba(74, 77, 88, 1);
+  margin-top: 10px;
+}
+
+.school .desText {
+  font-weight: 400;
+  font-size: 15px;
+  color: rgb(69, 69, 69);
+  margin-top: 3px;
+}

@@ -1,0 +1,70 @@
+.login #main {
+    width: 100%;
+    background-color: #F3F3F3;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.login .inner-con {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+}
+
+.login .form {
+    width: 350px;
+    border-radius: 15px;
+    background-color: white;
+    padding: 20px 20px;
+    position: relative;
+    z-index: 100;
+    box-shadow: 0 0 6px 0 #cecece;
+}
+
+.login form > * {
+    display: block;
+    margin: 23px 0;
+}
+
+.login h1 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 46px;
+    color: #163A61;
+    text-align: center;
+    margin: 0 0 20px 0;
+}
+
+.login input {
+    width: 100%;
+}
+
+.login input:focus {
+    border-color: #163A61;
+}
+
+.login button {
+    margin: 10px auto 0;
+    min-width: 80px;
+    height: 30px;
+    border-radius: 8px;
+    background-color: #163A61;
+    border: none;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.ant-input:focus {
+    outline: none;
+    border: 1px solid #163A61;
+}
+

@@ -1,0 +1,29 @@
+                                               
+
+from django.db import migrations
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('awards', '0008_alter_winner_course_alter_winner_group_and_more'),
+    ]
+
+    operations = [
+        migrations.RemoveField(
+            model_name='award',
+            name='issued_by_course_teacher',
+        ),
+        migrations.RemoveField(
+            model_name='award',
+            name='issued_by_group_teacher',
+        ),
+        migrations.RemoveField(
+            model_name='award',
+            name='issued_by_manager',
+        ),
+        migrations.RemoveField(
+            model_name='winner',
+            name='group',
+        ),
+    ]

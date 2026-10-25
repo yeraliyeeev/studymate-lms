@@ -1,0 +1,18 @@
+                                               
+
+from django.db import migrations
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('schools', '0003_remove_school_feed_alter_school_name'),
+        ('timetables', '0005_alter_timebound_unique_together'),
+    ]
+
+    operations = [
+        migrations.AlterUniqueTogether(
+            name='timebound',
+            unique_together={('school', 'from_time', 'to_time')},
+        ),
+    ]

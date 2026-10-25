@@ -1,0 +1,40 @@
+                                               
+
+from django.db import migrations, models
+import django.db.models.deletion
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ("schools", "0001_initial"),
+        ("grades", "0001_initial"),
+    ]
+
+    operations = [
+        migrations.RemoveField(
+            model_name="grade",
+            name="number",
+        ),
+        migrations.AddField(
+            model_name="grade",
+            name="is_active",
+            field=models.BooleanField(default=True),
+        ),
+        migrations.AddField(
+            model_name="grade",
+            name="school",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="groups",
+                to="schools.school",
+            ),
+            preserve_default=False,
+        ),
+        migrations.AlterField(
+            model_name="grade",
+            name="name",
+            field=models.CharField(max_length=100, unique=True),
+        ),
+    ]
