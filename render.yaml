@@ -32,6 +32,8 @@ services:
         value: https://studymate-yeraliyeeev.onrender.com
       - key: CSRF_TRUSTED_ORIGINS
         value: https://studymate-yeraliyeeev.onrender.com
+      - key: DEMO_READ_ONLY_EMAIL
+        value: admin@gmail.com
 
   - type: web
     name: studymate-yeraliyeeev

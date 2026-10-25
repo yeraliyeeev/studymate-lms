@@ -10,6 +10,15 @@ Assylkhan independently developed StudyMate over approximately 12–14 months as
 
 StudyMate was created to explore how one platform can make academic administration and everyday learning tasks easier for school managers, teachers, and students.
 
+## Live demo
+
+- **Application:** [studymate-yeraliyeeev.onrender.com](https://studymate-yeraliyeeev.onrender.com)
+- **Source code:** [github.com/yeraliyeeev/studymate-lms](https://github.com/yeraliyeeev/studymate-lms)
+- **Demo email:** `admin@gmail.com`
+- **Demo password:** `admin`
+
+The hosted account is read-only. Reviewers can explore manager workflows and sample data, but requests that would create, edit, or delete data are rejected by the API. The backend may take a short time to wake after inactivity on Render's free plan.
+
 ## Features
 
 - Role-based access for managers, teachers, and students
@@ -96,14 +105,36 @@ The initial deployment runs migrations and safely creates demo data only when th
 
 The free backend service can take a short time to wake after inactivity. When both deployments succeed, add the frontend URL to the GitHub repository's **Website** field.
 
-## Demo account
+## Local demo account
 
 After running `seed_db`, sign in locally with:
 
 - Email: `admin@gmail.com`
 - Password: `admin`
 
-These credentials are for local demonstration only and must be replaced before deployment.
+For production deployments, configure `DEMO_READ_ONLY_EMAIL`. The deployment command removes Django administrator privileges from that account, and API middleware blocks all data-changing requests made with its JWT access token.
+
+## Architecture
+
+```text
+React + Redux Toolkit  →  Django REST API  →  PostgreSQL
+        browser              Render             Render
+```
+
+JWT authentication connects the client to the API. Role-aware routes provide separate manager, teacher, and student workflows. The public portfolio account is additionally restricted to read-only requests on the server.
+
+## Portfolio highlights
+
+- Designed and implemented independently over approximately 12–14 months
+- Modelled school workflows across three user roles
+- Built a React single-page interface backed by a Django REST API
+- Added JWT authentication, role-aware navigation, filtering, and pagination
+- Deployed the frontend, API, and PostgreSQL database as a Render Blueprint
+- Added server-side protection for a safe public demonstration
+
+## Screenshots
+
+Screenshots of the dashboard, course management, assignments, marks, timetable, and community features will be added to `docs/screenshots/`.
 
 ## Project structure
 
