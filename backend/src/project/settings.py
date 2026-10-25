@@ -1,11 +1,13 @@
 import os
 import environ
+import dj_database_url
 from pathlib import Path
 
 env = environ.Env(
     DJANGO_DEBUG=(bool, False),
     DJANGO_ALLOWED_HOSTS=(list, ["127.0.0.1", "localhost"]),
     CORS_ALLOWED_ORIGINS=(list, ["http://localhost:3000"]),
+    CSRF_TRUSTED_ORIGINS=(list, []),
 )
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -18,6 +20,7 @@ DEBUG = env("DJANGO_DEBUG")
 ALLOWED_HOSTS = env("DJANGO_ALLOWED_HOSTS")
 
 CORS_ALLOWED_ORIGINS = env("CORS_ALLOWED_ORIGINS")
+CSRF_TRUSTED_ORIGINS = env("CSRF_TRUSTED_ORIGINS")
 
                         
 PROJECT_APPS = [
@@ -66,6 +69,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -103,6 +107,12 @@ DATABASES = {
     }
 }
 
+if env("DATABASE_URL", default=None):
+    DATABASES["default"] = dj_database_url.config(
+        conn_max_age=600,
+        ssl_require=not DEBUG,
+    )
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -130,9 +140,14 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 MEDIA_URL = "/images/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 MEDIA_ROOT = os.path.join(BASE_DIR, "static/images")
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

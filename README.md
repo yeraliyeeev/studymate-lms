@@ -76,6 +76,26 @@ Backend settings are read from `backend/src/.env`. Frontend API configuration is
 
 Do not commit production secrets, uploaded media, local databases, or `.env` files.
 
+## Deploy on Render
+
+This repository includes a `render.yaml` Blueprint that provisions:
+
+- A React static site
+- A Django web service
+- A PostgreSQL database
+
+After pushing the repository to GitHub:
+
+1. Sign in to Render with GitHub.
+2. Select **New → Blueprint**.
+3. Connect the `yeraliyeeev/studymate-lms` repository.
+4. Keep the Blueprint path as `render.yaml`.
+5. Review the three resources and select **Deploy Blueprint**.
+
+The initial deployment runs migrations and safely creates demo data only when the database is empty. Subsequent deployments preserve the existing database.
+
+The free backend service can take a short time to wake after inactivity. When both deployments succeed, add the frontend URL to the GitHub repository's **Website** field.
+
 ## Demo account
 
 After running `seed_db`, sign in locally with:

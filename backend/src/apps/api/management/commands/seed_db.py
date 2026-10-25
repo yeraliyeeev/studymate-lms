@@ -715,6 +715,10 @@ class Command(BaseCommand):
         self._add_rating_to_student(get_rating, 'Year marks')
     
     def handle(self, *args, **options):
+        if User.objects.exists():
+            self.stdout.write(self.style.WARNING('Database already contains users; seed skipped.'))
+            return
+
         self.schools = self._create_schools()
         self.grades = self._create_grades()
         self.users = self._create_users()
